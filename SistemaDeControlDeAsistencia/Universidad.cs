@@ -22,7 +22,28 @@ namespace SistemaDeControlDeAsistencia
             }
         }
 
+        public static void MostrarInformacionEstudiante(Estudiante estudiante)
+        {
+            double porcentaje = Asistencia.CalcularPorcentaje(estudiante.SesionesAsistidas, estudiante.TotalSesiones);
+            bool cumple = Asistencia.CumpleAsistencia(porcentaje);
 
+            Console.WriteLine($"Estudiante: {estudiante.Nombre}");
+            Console.WriteLine($"Porcentaje de Asistencia: {porcentaje}%");
+            Console.WriteLine(cumple ? "Cumple con el mínimo de asistencia." : "No cumple con el mínimo de asistencia.");
+            Console.WriteLine();
+        }
 
+        public static class Asistencia
+        {
+            public static double CalcularPorcentaje(int sesionesAsistidas, int totalSesiones)
+            {
+                return totalSesiones > 0 ? ((double)sesionesAsistidas / totalSesiones) * 100 : 0;
+            }
+
+            public static bool CumpleAsistencia(double porcentaje)
+            {
+                return porcentaje >= 75;
+            }
+        }
     }
 }
